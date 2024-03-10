@@ -1,5 +1,3 @@
 # NuM487_FreeRTOS
 
-FreeRTOS Demo project on NuMaker-NuM487KM develop board using GNU toolchain.
-
-
+FreeRTOS Demo project on NuM487KM_DEVB using GNU toolchain.

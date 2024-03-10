@@ -22,8 +22,7 @@ FPU       = -mfpu=fpv4-sp-d16
 FLOAT-ABI = -mfloat-abi=hard
 
 ## Warning Options
-WARNINGS = -Wall -Wtype-limits -Wno-unused-function
-# WARNINGS = -Wall -Werror -Wtype-limits -Wno-unused-function
+WARNINGS = -Wall -Werror -Wtype-limits -Wno-unused-function
 
 ## Debugging Options
 DEBUG = -gdwarf-2
@@ -38,27 +37,36 @@ LIBDIRS =
 ## Include Path
 C_INCLUDES  = -I.
 C_INCLUDES += -ICore
+C_INCLUDES += -IConfig
 C_INCLUDES += -IDevice_Startup
+C_INCLUDES += -IDrivers/HAL
 C_INCLUDES += -IDrivers/CMSIS
 C_INCLUDES += -IDrivers/Library/Device/Nuvoton_M480/Include
 C_INCLUDES += -IDrivers/Library/StdDriver/inc
-C_INCLUDES += -IMiddlewares/FreeRTOS/Source/include
-C_INCLUDES += -IMiddlewares/FreeRTOS/Source/portable/GCC/ARM_CM4F
-C_INCLUDES += -IMiddlewares/FreeRTOS/Demo/Common/include
+# C_INCLUDES += -IMiddleware/FreeRTOS/Source/include
+# C_INCLUDES += -IMiddleware/FreeRTOS/Source/portable/GCC/ARM_CM4F
+# C_INCLUDES += -IMiddleware/FreeRTOS/Demo/Common/include
+C_INCLUDES += -IMiddleware/FreeRTOS-KernelV11.0.1/include
+C_INCLUDES += -IMiddleware/FreeRTOS-KernelV11.0.1/portable/GCC/ARM_CM4F
 
 ## C Source Path
 C_SOURCES += $(wildcard Device_Startup/*.c)
+C_SOURCES += $(wildcard Drivers/HAL/*.c)
 C_SOURCES += $(wildcard Drivers/Library/Device/Nuvoton_M480/Source/*.c)
 # C_SOURCES += $(wildcard Drivers/Library/StdDriver/src/*.c)
 C_SOURCES += Drivers/Library/StdDriver/src/sys.c
 C_SOURCES += Drivers/Library/StdDriver/src/uart.c
+C_SOURCES += Drivers/Library/StdDriver/src/gpio.c
 C_SOURCES += Drivers/Library/StdDriver/src/retarget.c
 C_SOURCES += Drivers/Library/StdDriver/src/clk.c
-C_SOURCES += $(wildcard Middlewares/FreeRTOS/Source/*.c)
-C_SOURCES += Middlewares/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c
-C_SOURCES += Middlewares/FreeRTOS/Source/portable/MemMang/heap_4.c
-# C_SOURCES += $(wildcard Middlewares/FreeRTOS/Demo/Common/Minimal/*.c)
-C_SOURCES += $(wildcard Middlewares/FreeRTOS/Demo/Common/Full/*.c)
+# C_SOURCES += $(wildcard Middleware/FreeRTOS/Source/*.c)
+# C_SOURCES += Middleware/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c
+# C_SOURCES += Middleware/FreeRTOS/Source/portable/MemMang/heap_4.c
+# # C_SOURCES += $(wildcard Middleware/FreeRTOS/Demo/Common/Minimal/*.c)
+# C_SOURCES += $(wildcard Middleware/FreeRTOS/Demo/Common/Full/*.c)
+C_SOURCES += $(wildcard Middleware/FreeRTOS-KernelV11.0.1/*.c)
+C_SOURCES += Middleware/FreeRTOS-KernelV11.0.1/portable/GCC/ARM_CM4F/port.c
+C_SOURCES += Middleware/FreeRTOS-KernelV11.0.1/portable/MemMang/heap_4.c
 
 # Assembly Source Path
 ASM_SOURCES += $(wildcard Device_Startup/*.S)
@@ -100,7 +108,6 @@ LDSCRIPT = Device_Startup/gcc_arm.ld
 ################################################################################
 # Toolchain
 ################################################################################
-# COMPILER_PATH ?= D:/arm-gnu-toolchain-6.3.1.508-win32.any.x86/arm-none-eabi/bin/
 COMPILER_PATH ?= 
 CROSS   := $(COMPILER_PATH)arm-none-eabi
 CC      := $(CROSS)-gcc
@@ -123,7 +130,7 @@ CFLAGS += $(C_INCLUDES)
 
 ## Assembler Options
 ASMFLAGS  = $(MCUFLAGS)
-ASMFLAGS += -x assembler-with-cpp -Wa,-g$(DEBUG)
+ASMFLAGS += -x assembler-with-cpp -Wa,$(DEBUG)
 
 ## Link Options
 LDFLAGS  = $(MCUFLAGS)
@@ -156,7 +163,7 @@ test: $(OBJECTS) $(TESTOBJ) $(TEST_TARGET)
 
 macro: $(OBJECTS:.o=.i) $(APPOBJS:.o=.i) $(TESTOBJ:.o=.i)
 
-lib: $(BUILD_DIR)/libc4mrtos.a
+dump: $(BUILD_DIR)/$(TARGET).lss $(TESTOBJ:.o=.lss) $(BUILD_DIR)/$(TARGET).sym $(TESTOBJ:.o=.sym)
 
 size: $(TARGET_FILE)
 	$(SIZE) $(TARGET_FILE)
@@ -164,18 +171,17 @@ size: $(TARGET_FILE)
 clean:
 	-rm -rf $(BUILD_DIR)
 
-# download:
-# 	NuLink -e all
-# 	NuLink 0x180006EE -w APROM build/$(UPLOAD_HEX).hex
+upload:
+	serprog prog -p $(COMPORT) -f build/$(UPLOAD_HEX).hex
 
-# terminal:
-# 	putty -serial $(COMPORT) -sercfg 38400,1,N,N
+terminal:
+	putty -serial $(COMPORT) -sercfg 38400,1,N,N
 
 systeminfo:
 	@uname -a
 	@$(CC) --version
 
-.PHONY: all test macro lib size systeminfo clean upload terminal
+.PHONY: all test macro dump size systeminfo clean upload terminal
 
 ################################################################################
 # Build The Project
