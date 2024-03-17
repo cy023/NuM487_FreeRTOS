@@ -35,6 +35,8 @@ int main(void)
 {
     system_init();
 
+    printf("Here is Lab01.\n");
+
     xTaskCreate(task1, "task1", 256, NULL, tskIDLE_PRIORITY + 2, NULL);
     xTaskCreate(task2, "task2", 256, NULL, tskIDLE_PRIORITY + 2, NULL);
 

@@ -10,6 +10,7 @@
 
 # Upload Info.
 COMPORT    ?= /dev/ttyACM0
+UPLOAD_LAB ?= Core/Lab02
 UPLOAD_HEX ?= main
 
 ################################################################################
@@ -17,7 +18,7 @@ UPLOAD_HEX ?= main
 ################################################################################
 
 LAB_DIRS  = Core/Lab01
-# LAB_DIRS += Core/Lab02
+LAB_DIRS += Core/Lab02
 
 ################################################################################
 # User Command
@@ -36,7 +37,7 @@ clean:
 	$(foreach dir,$(LAB_DIRS),make -C $(dir) clean;)
 
 upload:
-	serprog prog -p $(COMPORT) -f build/$(UPLOAD_HEX).hex
+	serprog prog -p $(COMPORT) -f $(UPLOAD_LAB)/build/$(UPLOAD_HEX).hex
 
 terminal:
 	putty -serial $(COMPORT) -sercfg 38400,1,N,N
