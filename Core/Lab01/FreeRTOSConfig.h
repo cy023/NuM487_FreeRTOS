@@ -155,7 +155,6 @@ PRIORITY THAN THIS! (higher priorities are lower numeric values. */
 #define INCLUDE_uxTaskPriorityGet               1
 #define INCLUDE_vTaskDelete                     1
 #define INCLUDE_vTaskSuspend                    1
-// #define INCLUDE_xResumeFromISR                  1 // TODO:
 #define INCLUDE_vTaskDelayUntil                 1
 #define INCLUDE_vTaskDelay                      1
 #define INCLUDE_xTaskGetSchedulerState          1
@@ -163,7 +162,6 @@ PRIORITY THAN THIS! (higher priorities are lower numeric values. */
 #define INCLUDE_uxTaskGetStackHighWaterMark     0
 #define INCLUDE_xTaskGetIdleTaskHandle          0
 #define INCLUDE_eTaskGetState                   0
-// #define INCLUDE_xEventGroupSetBitFromISR        1 // TODO:
 #define INCLUDE_xTimerPendFunctionCall          0
 #define INCLUDE_xTaskAbortDelay                 0
 #define INCLUDE_xTaskGetHandle                  0
