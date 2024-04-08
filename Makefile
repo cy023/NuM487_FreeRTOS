@@ -10,14 +10,15 @@
 
 # Upload Info.
 COMPORT    ?= /dev/ttyACM0
-UPLOAD_LAB ?= Core/Lab_Task_LED
+UPLOAD_LAB ?= Core/Lab_Task_preemptive
 UPLOAD_HEX ?= main
 
 ################################################################################
 # Targets
 ################################################################################
 
-LAB_DIRS  = Core/Lab_Task_LED
+# LAB_DIRS  = Core/Lab_Task_LED
+LAB_DIRS  = Core/Lab_Task_preemptive
 # LAB_DIRS += Core/Lab02
 
 ################################################################################
