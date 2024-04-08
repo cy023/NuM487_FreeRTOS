@@ -12,7 +12,7 @@
 TARGET = main
 
 ## Lab directory
-LAB_DIR = Core/Lab01
+LAB_DIR = Core/Lab_Task_LED
 
 ## Root Path
 ROOT_PATH = ../..
