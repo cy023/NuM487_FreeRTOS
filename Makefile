@@ -10,7 +10,7 @@
 
 # Upload Info.
 COMPORT    ?= /dev/ttyACM0
-UPLOAD_LAB ?= Core/Lab_Task_starved
+UPLOAD_LAB ?= Core/Lab_Task_delay
 UPLOAD_HEX ?= main
 
 ################################################################################
@@ -20,7 +20,8 @@ UPLOAD_HEX ?= main
 # LAB_DIRS  = Core/Lab_Task_LED
 # LAB_DIRS  = Core/Lab_Task_preemptive
 # LAB_DIRS  = Core/Lab_Task_cooperative
-LAB_DIRS += Core/Lab_Task_starved
+# LAB_DIRS += Core/Lab_Task_starved
+LAB_DIRS += Core/Lab_Task_delay
 
 ################################################################################
 # User Command
