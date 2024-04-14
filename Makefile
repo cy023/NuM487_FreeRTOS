@@ -10,7 +10,7 @@
 
 # Upload Info.
 COMPORT    ?= /dev/ttyACM0
-UPLOAD_LAB ?= Core/Lab_Task_delete_task
+UPLOAD_LAB ?= Core/Lab_Task_continuous_and_periodic_task
 UPLOAD_HEX ?= main
 
 ################################################################################
@@ -25,7 +25,8 @@ UPLOAD_HEX ?= main
 # LAB_DIRS += Core/Lab_Task_periodic
 # LAB_DIRS += Core/Lab_Task_idle_task
 # LAB_DIRS += Core/Lab_Task_change_priority
-LAB_DIRS += Core/Lab_Task_delete_task
+# LAB_DIRS += Core/Lab_Task_delete_task
+LAB_DIRS += Core/Lab_Task_continuous_and_periodic_task
 
 ################################################################################
 # User Command
