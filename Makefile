@@ -10,7 +10,7 @@
 
 # Upload Info.
 COMPORT    ?= /dev/ttyACM0
-UPLOAD_LAB ?= Core/Lab_Software_Timer_oneshot_and_autoreload
+UPLOAD_LAB ?= Core/Lab_Software_Timer_timer_id
 UPLOAD_HEX ?= main
 
 ################################################################################
@@ -30,7 +30,8 @@ UPLOAD_HEX ?= main
 # LAB_DIRS += Core/Lab_Queue_blocking_on_reads
 # LAB_DIRS += Core/Lab_Queue_blocking_on_writes
 # LAB_DIRS += Core/Lab_Queue_queue_set
-LAB_DIRS += Core/Lab_Software_Timer_oneshot_and_autoreload
+# LAB_DIRS += Core/Lab_Software_Timer_oneshot_and_autoreload
+LAB_DIRS += Core/Lab_Software_Timer_timer_id
 
 ################################################################################
 # User Command
